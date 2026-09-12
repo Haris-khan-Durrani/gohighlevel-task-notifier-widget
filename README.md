@@ -67,37 +67,29 @@ GoHighLevel CRM
 
 ## 🧩 Installation
 
-The public repository deliberately does **not** contain a GoHighLevel Private Integration Token. The public `task.js` is a secure distribution loader for the controlled production build.
+The public repository deliberately does **not** contain a GoHighLevel Private Integration Token or a private production deployment URL.
 
-Add the following to the GoHighLevel Custom JavaScript area where your widget is loaded:
+Load the widget from your own approved deployment, reverse proxy, or local hosting environment:
 
 ```html
 <script
-  src="https://tasks.onesol.ae/task.js?v=4.3.0"
+  src="YOUR_WIDGET_HOST/task.js"
   data-userid="YOUR_GHL_USER_ID"
   data-username="YOUR_NAME">
 </script>
 ```
 
-You can also use the repository loader:
-
-```html
-<script
-  src="https://raw.githubusercontent.com/Haris-khan-Durrani/gohighlevel-task-notifier-widget/main/task.js"
-  data-userid="YOUR_GHL_USER_ID"
-  data-username="YOUR_NAME">
-</script>
-```
+For development, you can serve `task.js` from any static HTTPS host. Keep production API credentials on a protected server-side layer rather than publishing them in browser JavaScript.
 
 ## 🔐 Security
 
 **Never commit a real GoHighLevel Private Integration Token to a public repository or browser-delivered JavaScript.** A browser-delivered token can be inspected by anyone who can load the page.
 
-For production, keep the token in a protected server-side proxy/API layer and expose only the minimum operations required by the widget. The public repository intentionally contains no secret.
+For production, keep the token in a protected server-side proxy/API layer and expose only the minimum operations required by the widget. The public repository intentionally contains no secret and no private production-domain reference.
 
 ## 🔌 API model
 
-The production implementation is designed around the GoHighLevel task/contact workflow:
+The implementation is designed around the GoHighLevel task/contact workflow:
 
 ```http
 POST /locations/{locationId}/tasks/search
@@ -124,10 +116,10 @@ When a task has a contact ID, the widget builds the GoHighLevel contact route dy
 /v2/location/{LOCATION_ID}/contacts/detail/{CONTACT_ID}
 ```
 
-Example:
+Example structure:
 
 ```text
-https://app.gohighlevel.com/v2/location/DBIW35BNmwcduwl3pWp4/contacts/detail/QKuM9fZ3ZQbNiUms3Nt7
+https://app.gohighlevel.com/v2/location/LOCATION_ID/contacts/detail/CONTACT_ID
 ```
 
 The location ID and contact ID are not hard-coded into the task action.
@@ -151,7 +143,7 @@ The location ID and contact ID are not hard-coded into the task action.
 └── .gitignore
 ```
 
-`task.js` is the public distribution loader. The production implementation is hosted separately so deployment credentials are not published.
+`task.js` is the public widget implementation/template. Configure your deployment host and credentials through your own secure environment.
 
 ## 🚀 Roadmap
 
